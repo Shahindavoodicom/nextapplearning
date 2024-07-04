@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -39,6 +40,13 @@ export default function Home() {
       </button>
       <h1>{nameServer && nameServer}</h1>
       <h1>{serverRes && serverRes}</h1>
+      <Link
+        href={"/about?name=shahin&lastName=davoodi"}
+        className="text-blue-700"
+      >
+        about page
+      </Link>
+      
     </>
   );
 }
