@@ -4,11 +4,8 @@ export async function POST(req: Request, res: Response) {
   try {
     const data = await req.json();
     name = data.name;
-    if (name == "shahin") {
-      return Response.json({ hello: "operation was ok" }, { status: 200 });
-    }
 
-    return Response.json({ hello: "operation  was ok" }, { status: 404 });
+    return Response.json({ hello: "operation  was ok" });
   } catch (error) {
     console.log(error);
   }
