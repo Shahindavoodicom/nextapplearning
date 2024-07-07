@@ -1,5 +1,3 @@
-// just for test
-
 let name: string;
 
 export async function POST(req: Request, res: Response) {
