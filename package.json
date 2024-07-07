@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sequelize/sqlite3": "^7.0.0-alpha.41",
+    "@types/sequelize": "^4.28.20",
     "axios": "^1.7.2",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -21,6 +25,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
+    "sequelize-cli": "^6.6.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

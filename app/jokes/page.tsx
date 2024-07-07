@@ -1,3 +1,6 @@
+import { database } from "@/database/connection";
+
+
 async function getData() {
   const res = await fetch("https://api.chucknorris.io/jokes/random");
   if (!res.ok) {
