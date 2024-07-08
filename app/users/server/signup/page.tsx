@@ -1,31 +1,37 @@
 import { Users } from "@/models/users";
 import { revalidatePath } from "next/cache";
 
-
 export default async function Page() {
+  async function createUserAction(FormData: FormData) {
+    "use server";
+    const name = FormData.get("name");
+    const lastName = FormData.get("lastName");
+    const email = FormData.get("email");
 
-
-
-    async function createUserAction(FormData:FormData){
-        'use server'
-        const name = FormData.get('name')
-        const lastName = FormData.get('lastName')
-        const email = FormData.get('email')
-
-        if(!name || !lastName || !email){
-            return
-        }
-       
-        await Users.create({
-            name,
-            lastName,
-            email
-        })
-
-        revalidatePath('/users/signup')
-                
+    if (!name || !lastName || !email) {
+      return;
     }
 
+    await Users.create({
+      name,
+      lastName,
+      email,
+    });
+    revalidatePath("/users/signup");
+  }
+
+  async function deleteUserAction(FormData: FormData) {
+    "use server";
+    const id = FormData.get("id");
+    console.log(id);
+    
+    if (!id) {
+      return;
+    }
+
+    Users.destroy({ where: { id } });
+    revalidatePath("/users/signup")
+  }
 
   const users = await Users.findAll();
   return (
@@ -63,15 +69,22 @@ export default async function Page() {
               <th>name</th>
               <th>last name</th>
               <th>email</th>
+              <th>action</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user:any , index) => {
+            {users.map((user: any, index) => {
               return (
                 <tr key={index}>
                   <td>{user.name}</td>
                   <td>{user.lastName}</td>
                   <td>{user.email}</td>
+                  <td>
+                    <form action={deleteUserAction}>
+                      <input name='id' value={user.id} className="hidden" />
+                      <input type="submit"  className="bg-red-600 text-white p-2 rounded-lg cursor-pointer" value='delete user'/>
+                    </form>
+                  </td>
                 </tr>
               );
             })}
