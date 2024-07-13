@@ -6,6 +6,7 @@ import BlogTable from "../../components/BlogTable";
 
 export default function BlogsPage() {
   const [blogs, setBlogs] = useState([]);
+  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     async function fetchBlogs() {
@@ -68,7 +69,12 @@ export default function BlogsPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
-        <BlogTable blogs={blogs} onDelete={handleDelete} />
+        <BlogTable
+          flag={flag}
+          setFlag={setFlag}
+          blogs={blogs}
+          onDelete={handleDelete}
+        />
       </motion.div>
       <motion.a
         href='/blog/create'

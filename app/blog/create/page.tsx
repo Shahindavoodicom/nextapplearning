@@ -1,11 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import BlogForm from "../../../components/BlogForm";
 import BlogTable from "../../../components/BlogTable";
+import axios from "axios";
 
 export default function CreateBlogPage() {
   const [blogs, setBlogs] = useState([]);
+  const [flag, setFlag] = useState(false);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      const response = await axios.get("/api/blogs");
+      setBlogs(response.data);
+    }
+    fetchBlogs();
+  }, []);
 
   const handleBlogCreated = (newBlog: any) => {
     //@ts-ignore
@@ -36,7 +46,12 @@ export default function CreateBlogPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <BlogTable blogs={blogs} onDelete={() => {}} />
+        <BlogTable
+          flag={flag}
+          setFlag={setFlag}
+          blogs={blogs}
+          onDelete={() => {}}
+        />
       </motion.div>
       <motion.a
         href='/blogs'

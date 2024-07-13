@@ -4,9 +4,13 @@ import axios from "axios";
 export default function BlogTable({
   blogs,
   onDelete,
+  flag,
+  setFlag,
 }: {
   blogs: any;
   onDelete: any;
+  flag: any;
+  setFlag: any;
 }) {
   const handleDelete = async (id: any) => {
     await axios.delete(`/api/blogs/${id}`);
@@ -35,7 +39,10 @@ export default function BlogTable({
               <td className='py-3 px-6'>
                 <button
                   className='bg-red-500 hover:bg-red-700 active:bg-red-900 transition-colors text-white font-bold py-2 px-4 rounded-lg'
-                  onClick={() => handleDelete(blog.id)}
+                  onClick={() => {
+                    handleDelete(blog.id);
+                    setFlag(!flag);
+                  }}
                 >
                   Delete
                 </button>
