@@ -1,53 +1,41 @@
 "use client";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Link from "next/link";
+import { motion } from "framer-motion";
 
-export default function Home() {
-  const [name, setName] = useState("");
-  const [serverRes, setServerRes] = useState("");
-  const [nameServer, setNameServer] = useState("");
-
-  async function sendName() {
-    axios
-      .post("/api/hello", {
-        name,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setServerRes(res.data.hello);
-          axios.get("/api/hello").then((res) => {
-            setNameServer(res.data.hello);
-          });
-        }
-      })
-      .catch((err) => {
-        setNameServer('')
-        setServerRes('')
-      });
-  }
-
+export default function HomePage() {
   return (
-    <>
-      <input
-        className="border-2"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-      />
-      <button onClick={sendName} className="bg-green-700 text-white p-2">
-        send name
-      </button>
-      <h1>{nameServer && nameServer}</h1>
-      <h1>{serverRes && serverRes}</h1>
-      <Link
-        href={"/about?name=shahin&lastName=davoodi"}
-        className="text-blue-700"
+    <div
+      className='flex flex-col items-center justify-center min-h-screen p-6'
+      style={{ backdropFilter: "blur(10px)" }}
+    >
+      <motion.h1
+        className='text-4xl mb-24 font-bold text-center text-gray-900 dark:text-white'
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
       >
-        about page
-      </Link>
-      
-    </>
+        Welcome to the Blogging App
+      </motion.h1>
+
+      <motion.a
+        href='/blogs'
+        className={`px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-200 dark:bg-blue-400 dark:shadow-none dark:hover:bg-blue-500 mb-10`}
+        whileHover={{ scale: 1.1 }}
+        initial={{ opacity: 0, scale: 0.8, y: -50 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
+      >
+        View Blogs
+      </motion.a>
+      <motion.a
+        href='/blog/create'
+        className={`px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200 dark:bg-green-400 dark:shadow-none dark:hover:bg-green-500`}
+        whileHover={{ scale: 1.1 }}
+        initial={{ opacity: 0, scale: 0.8, y: 50 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+      >
+        Create a Blog
+      </motion.a>
+    </div>
   );
 }
