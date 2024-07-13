@@ -4,9 +4,7 @@ import axios from "axios";
 export default function BlogTable({
   blogs,
   onDelete,
-  className,
 }: {
-  className?: string;
   blogs: any;
   onDelete: any;
 }) {
@@ -16,7 +14,7 @@ export default function BlogTable({
   };
 
   return (
-    <table className={`w-4/5 mt-8 bg-black text-white ${className}`}>
+    <table className={`w-full mt-8 mx-auto bg-black text-white`}>
       <thead className='bg-gray-700'>
         <tr>
           <th className='py-3 px-6 font-bold uppercase'>ID</th>

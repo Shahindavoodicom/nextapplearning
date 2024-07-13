@@ -68,7 +68,7 @@ export default function BlogsPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
-        <BlogTable className='w-full' blogs={blogs} onDelete={handleDelete} />
+        <BlogTable blogs={blogs} onDelete={handleDelete} />
       </motion.div>
       <motion.a
         href='/blog/create'
