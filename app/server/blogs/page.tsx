@@ -1,25 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
-import axios from "axios";
-import BlogTable from "../../components/BlogTable";
+import BlogTableServer from "@/components/BlogTableServer";
+import Link from "next/link";
 
 export default function BlogsPage() {
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      const response = await axios.get("/api/blogs");
-      setBlogs(response.data);
-    }
-    fetchBlogs();
-  }, []);
-
-  const handleDelete = (id: any) => {
-    //@ts-ignore
-    setBlogs(blogs.filter((blog) => blog.id !== id));
-  };
-
   return (
     <div className='relative flex flex-col items-center justify-center h-screen p-6 bg-black text-white overflow-hidden'>
       <div className='absolute inset-0 z-0'>
@@ -68,15 +53,14 @@ export default function BlogsPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
-        <BlogTable blogs={blogs} onDelete={handleDelete} />
+        <BlogTableServer />
       </motion.div>
-      <motion.a
-        href='/blog/create'
-        className='text-blue-400 mt-4 hover:underline z-10'
-        whileHover={{ scale: 1.1 }}
+      <Link
+        href='/server/blog/create'
+        className='text-blue-400 mt-4 hover:underline hover:scale-105 z-10 transition-all ease-in-out duration-300'
       >
         Go to creating blog
-      </motion.a>
+      </Link>
     </div>
   );
 }

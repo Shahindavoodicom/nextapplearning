@@ -24,7 +24,7 @@ export default function BlogForm({ onBlogCreated }: any) {
       className='bg-gray-800 text-white p-4 rounded-lg shadow-lg'
       onSubmit={handleSubmit}
     >
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col justify-center gap-2'>
         <input
           type='text'
           placeholder='Author'

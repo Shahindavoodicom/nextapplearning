@@ -1,31 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import { motion } from "framer-motion";
-import BlogForm from "../../../components/BlogForm";
-import BlogTable from "../../../components/BlogTable";
-import axios from "axios";
+import Link from "next/link";
+import BlogFormServer from "@/components/BlogFormServer";
+import BlogTableServer from "@/components/BlogTableServer";
 
 export default function CreateBlogPage() {
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      const response = await axios.get("/api/blogs");
-      setBlogs(response.data);
-    }
-    fetchBlogs();
-  }, []);
-
-  const handleBlogCreated = (newBlog: any) => {
-    //@ts-ignore
-    setBlogs((prevBlogs) => [newBlog, ...prevBlogs].slice(0, 3));
-  };
-
-  const handleDelete = (id: any) => {
-    //@ts-ignore
-    setBlogs(blogs.filter((blog) => blog.id !== id));
-  };
-
   return (
     <div className='relative flex flex-col items-center justify-center h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white p-6 overflow-hidden'>
       <motion.h1
@@ -42,7 +22,7 @@ export default function CreateBlogPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <BlogForm onBlogCreated={handleBlogCreated} />
+        <BlogFormServer />
       </motion.div>
       <motion.div
         className='w-full max-w-md mt-8 z-10'
@@ -50,15 +30,14 @@ export default function CreateBlogPage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <BlogTable blogs={blogs} onDelete={handleDelete} />
+        <BlogTableServer />
       </motion.div>
-      <motion.a
-        href='/blogs'
-        className='text-blue-400 mt-4 hover:underline z-10'
-        whileHover={{ scale: 1.1 }}
+      <Link
+        href='/server/blogs'
+        className='text-blue-400 mt-4 hover:underline z-10 transition-transform hover:scale-105'
       >
         Go to blogs
-      </motion.a>
+      </Link>
       <div className='absolute inset-0 z-0 pointer-events-none'>
         <motion.div
           className='w-72 h-72 bg-blue-600 opacity-25 rounded-full absolute top-16 left-32'
